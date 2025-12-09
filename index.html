@@ -2,182 +2,352 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8" />
-    <title>Torpaqşünaslıq və Aqrokimya PDF</title>
+    <title>Torpaq-HBN | Torpaqşünaslıq və Aqrokimya PDF Kitabxanası</title>
     <style>
-        *{box-sizing:border-box;margin:0;padding:0}
-        body{
-            font-family:Arial, sans-serif;
-            background:#f4f1ea;
-            color:#2d261b;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        header{
-            background:linear-gradient(135deg,#3c6e47,#6b4f2c);
-            color:#fff;
-            padding:14px 20px;
-        }
-        header h1{font-size:22px;margin-bottom:4px}
-        header p{font-size:13px;opacity:.9}
 
-        .app{display:flex;height:calc(100vh - 60px);}
-        .sidebar{
-            width:260px;
-            background:#f0e6d8;
-            border-right:1px solid #d0c2aa;
-            padding:12px;
-            overflow-y:auto;
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f0e8;
+            color: #2f261c;
         }
-        .sidebar h2{
-            font-size:15px;
-            margin-bottom:10px;
-            color:#3c6e47;
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, #2f5233, #7f5539);
+            color: #fff;
+            padding: 18px 28px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.25);
         }
-        .pdf-list{
-            list-style:none;
-            display:flex;
-            flex-direction:column;
-            gap:6px;
+
+        header h1 {
+            font-size: 26px;
+            margin-bottom: 4px;
         }
-        .pdf-btn{
-            width:100%;
-            text-align:left;
-            padding:8px 10px;
-            border-radius:7px;
-            border:1px solid #ccbda3;
-            background:#fffaf3;
-            cursor:pointer;
-            font-size:13px;
+
+        header p {
+            font-size: 14px;
+            opacity: 0.95;
         }
-        .pdf-btn:hover{
-            background:#e4f1e6;
+
+        /* LAYOUT */
+        .app {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 0;
+            height: calc(100vh - 70px);
         }
-        .pdf-btn.active{
-            background:#3c6e47;
-            color:#fff;
-            border-color:#3c6e47;
-        }
-        .viewer{
-            flex:1;
-            padding:10px;
-            display:flex;
-            flex-direction:column;
-            gap:6px;
-        }
-        .viewer-header{
-            font-size:13px;
-            color:#3c6e47;
-        }
-        .viewer-box{
-            flex:1;
-            border-radius:8px;
-            border:1px solid #ccbda3;
-            overflow:hidden;
-            background:#fff;
-        }
-        .viewer-box iframe{
-            width:100%;
-            height:100%;
-            border:none;
-        }
-        .empty-state{
-            width:100%;
-            height:100%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            text-align:center;
-            font-size:13px;
-            color:#7b6b54;
-            padding:16px;
-        }
-        @media(max-width:768px){
-            .app{flex-direction:column;}
-            .sidebar{
-                width:100%;
-                height:200px;
-                border-right:none;
-                border-bottom:1px solid #d0c2aa;
+
+        @media (max-width: 900px) {
+            .app {
+                grid-template-columns: 1fr;
+                grid-template-rows: 260px 1fr;
+                height: auto;
             }
-            .viewer{height:calc(100vh - 260px);}
+        }
+
+        /* SOL BLOK – LİST */
+        .sidebar {
+            background: #f0e4d5;
+            border-right: 1px solid #d3c0a5;
+            padding: 16px 18px;
+            overflow-y: auto;
+        }
+
+        .sidebar-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2f5233;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-sub {
+            font-size: 12px;
+            color: #6b5a45;
+            margin-bottom: 10px;
+        }
+
+        .search-box {
+            margin-bottom: 12px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid #c5b59a;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #2f5233;
+            box-shadow: 0 0 0 2px rgba(47,82,51,0.12);
+        }
+
+        .pdf-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pdf-item-btn {
+            width: 100%;
+            text-align: left;
+            padding: 9px 10px;
+            border-radius: 9px;
+            border: 1px solid #d1c0a6;
+            background: #fffaf2;
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.15s, transform 0.08s, box-shadow 0.08s, border-color 0.1s;
+        }
+
+        .pdf-item-btn span.icon {
+            font-size: 16px;
+        }
+
+        .pdf-item-btn:hover {
+            background: #e6f1e7;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            transform: translateY(-1px);
+        }
+
+        .pdf-item-btn.active {
+            background: #2f5233;
+            color: #fff;
+            border-color: #2f5233;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* SAĞ BLOK – VIEWER */
+        .viewer {
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .viewer-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .viewer-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #2f5233;
+        }
+
+        .viewer-sub {
+            font-size: 12px;
+            color: #6b5a45;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #e0efe2;
+            color: #27412b;
+        }
+
+        .viewer-box {
+            flex: 1;
+            border-radius: 12px;
+            border: 1px solid #d1c0a6;
+            background: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .viewer-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .empty-state {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #7b6a54;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(47,82,51,0.05) 0, transparent 60%),
+                radial-gradient(circle at 90% 80%, rgba(127,85,57,0.06) 0, transparent 55%);
+        }
+
+        .empty-state b {
+            color: #2f5233;
         }
     </style>
 </head>
 <body>
 <header>
-    <h1>Torpaqşünaslıq və Aqrokimya PDF Kitabxanası</h1>
-    <p>Dərs və sillabus materialları (GitHub Pages üzərindən hamı üçün açıq)</p>
+    <h1>Torpaq-HBN PDF Kitabxanası</h1>
+    <p>Torpaqşünaslıq, aqrokimya, mikrobiologiya, mülki müdafiə və digər fənlər üzrə dərs materialları</p>
 </header>
 
 <div class="app">
+    <!-- SOL: SİYAHI -->
     <aside class="sidebar">
-        <h2>Fayllar</h2>
+        <div class="sidebar-title">Fənn materialları</div>
+        <div class="sidebar-sub">PDF adına kliklə – sağ tərəfdə dərhal açılsın.</div>
+
+        <div class="search-box">
+            <input id="searchInput" type="text" placeholder="Axtar: torpaq, aqrokimya, mülki müdafiə..." />
+        </div>
+
         <ul class="pdf-list" id="pdfList"></ul>
     </aside>
 
+    <!-- SAĞ: PDF GÖRÜNTÜLƏYİCİ -->
     <section class="viewer">
-        <div class="viewer-header" id="viewerHeader">
-            Soldan bir PDF seçin.
+        <div class="viewer-header">
+            <div class="viewer-title" id="viewerTitle">
+                Hələ heç bir fayl seçilməyib.
+            </div>
+            <div class="viewer-sub" id="viewerSub">
+                Soldakı siyahıdan bir PDF seçin. Məsələn: <b>“torpaqşünaslıq sillabus”</b>, <b>“aqrokimya sillabus”</b> və ya <b>“mülki müdafiə mövzu”</b>.
+            </div>
+            <div class="tags">
+                <span class="tag">🌱 Torpaqşünaslıq</span>
+                <span class="tag">🧪 Aqrokimya</span>
+                <span class="tag">🦠 Mikrobiologiya</span>
+                <span class="tag">🛡️ Mülki müdafiə</span>
+                <span class="tag">📚 Politologiya</span>
+            </div>
         </div>
+
         <div class="viewer-box" id="viewerBox">
-            <div class="empty-state">
-                Hələ heç bir fayl açılmayıb.<br>
-                Soldakı siyahıdan PDF adına klik edin.
+            <div class="empty-state" id="emptyState">
+                <div>
+                    <b>Torpaq-HBN kitabxanasına xoş gəlmisiniz!</b><br><br>
+                    Soldakı siyahıdan hər hansı PDF faylını seçin – sənəd bu pəncərədə açılacaq.
+                </div>
             </div>
         </div>
     </section>
 </div>
 
 <script>
-    // Sənin repodakı FAYL ADLARI – olduğu kimi yazdım
+    // BURADA 14 PDF-İN SİYAHISI VAR
+    // Qeyd: Fayl adları GitHub-da necədirsə, file hissəsində də elə olmalıdır.
     const pdfFiles = [
-        { title: "Aqrokimya", file: "Aqrokimya.pdf" },
-        { title: "I Kollektiv sualları", file: "I KOLLEKVIUM SUALLARI SS.pdf" },
-        { title: "II Kollektiv sualları", file: "II KOLLEKVIUM SUALLARI.pdf" },
-        { title: "Mülki müdafiə mövzu", file: "Mülki mudafie movzu.pdf" },
-        { title: "Politologiya mühazirələr", file: "Politologiya mühazirələr.pdf" },
-        { title: "Aqrokimya sillabus", file: "aqrokimya sillabus.pdf" },
-        { title: "Mikrobiologiya sillabus", file: "mikrobiologiya sillabus.pdf" },
-        { title: "Mülki müdafiə sillabus", file: "mülki müdafie sillabus....pdf" },
-        { title: "Politologiya sillabus", file: "politologiya sillabus.pdf" }
+        { title: "Aqrokimya sillabus", file: "pdf/aqrokimya sillabus.pdf" },
+        { title: "Aqrokimya mühazirələr (Aqrokimya)", file: "pdf/Aqrokimya.pdf" },
+        { title: "I Kollektivium Sualları SS", file: "pdf/I KOLLEKVİUM SUALLARI SS.pdf" },
+        { title: "II Kollektivium Sualları", file: "pdf/II KOLLEKVİUM SUALLARI.pdf" },
+        { title: "Mikrobiologiya sillabus", file: "pdf/mikrobiologiya sillabus.pdf" },
+        { title: "Mülki müdafiə mövzu", file: "pdf/Mülki mudafie movzu.pdf" },
+        { title: "Mülki müdafiə sillabus", file: "pdf/mülki müdafie sillabus.pdf" },   // ad fərqlidirsə sadəcə buranı düzəlt
+        { title: "Politologiya mühazirələr", file: "pdf/Politologiya mühazirələr.pdf" },
+        { title: "Politologiya sillabus", file: "pdf/politologiya sillabus.pdf" },
+        { title: "Torpaq mikrobiologiyası", file: "pdf/torpaq mikrobiologiyası.pdf" },
+        { title: "Torpaq fizikasI sillabus", file: "pdf/torpaqfizikası.sillabus.pdf" },  // ehtiyac olsa adını dəyiş
+        { title: "Torpaqşünaslıq – 1", file: "pdf/torpaqşünaslıq-1.pdf" },
+        { title: "Torpaqşünaslıq – 2", file: "pdf/torpaqşünaslıq - 2.pdf" },
+        { title: "Torpaqşünaslıq sillabus", file: "pdf/torpaqşünaslıq sillabus.pdf" }
     ];
 
     const pdfListEl = document.getElementById("pdfList");
-    const viewerBox  = document.getElementById("viewerBox");
-    const viewerHeader = document.getElementById("viewerHeader");
+    const viewerBox = document.getElementById("viewerBox");
+    const emptyState = document.getElementById("emptyState");
+    const viewerTitle = document.getElementById("viewerTitle");
+    const viewerSub = document.getElementById("viewerSub");
+    const searchInput = document.getElementById("searchInput");
 
-    function loadPdfList() {
+    function renderList(filterText = "") {
+        pdfListEl.innerHTML = "";
+        const normalized = filterText.toLowerCase().trim();
+
         pdfFiles.forEach((pdf, index) => {
+            if (normalized && !pdf.title.toLowerCase().includes(normalized)) return;
+
             const li = document.createElement("li");
             const btn = document.createElement("button");
-            btn.className = "pdf-btn";
-            btn.textContent = pdf.title;
+            btn.className = "pdf-item-btn";
+            btn.dataset.index = index;
+
+            const iconSpan = document.createElement("span");
+            iconSpan.className = "icon";
+            iconSpan.textContent = "📄";
+
+            const textSpan = document.createElement("span");
+            textSpan.textContent = pdf.title;
+
+            btn.appendChild(iconSpan);
+            btn.appendChild(textSpan);
+
             btn.addEventListener("click", () => {
                 openPdf(index);
                 setActive(btn);
             });
+
             li.appendChild(btn);
             pdfListEl.appendChild(li);
         });
+
+        // Əgər filtr nəticəsində heç nə qalmayıbsa
+        if (!pdfListEl.children.length) {
+            const info = document.createElement("div");
+            info.style.fontSize = "12px";
+            info.style.color = "#7b6a54";
+            info.style.marginTop = "8px";
+            info.textContent = "Heç bir fayl tapılmadı. Axtarış sözünü dəyişin.";
+            pdfListEl.appendChild(info);
+        }
     }
 
     function openPdf(index) {
         const pdf = pdfFiles[index];
-        viewerHeader.textContent = "Hazırda açıq fayl: " + pdf.title;
+
+        viewerTitle.textContent = "Hazırda açıq fayl: " + pdf.title;
+        viewerSub.textContent = pdf.file;
 
         const iframe = document.createElement("iframe");
-        iframe.src = pdf.file; // Fayl repoda kök qovluqdadır
+        iframe.src = encodeURI(pdf.file); // boşluqları avtomatik düzəltmək üçün
 
         viewerBox.innerHTML = "";
         viewerBox.appendChild(iframe);
     }
 
-    function setActive(activeBtn){
-        document.querySelectorAll(".pdf-btn").forEach(btn=>{
-            btn.classList.remove("active");
-        });
+    function setActive(activeBtn) {
+        const buttons = document.querySelectorAll(".pdf-item-btn");
+        buttons.forEach(btn => btn.classList.remove("active"));
         activeBtn.classList.add("active");
     }
 
-    loadPdfList();
+    // Axtarış
+    searchInput.addEventListener("input", () => {
+        renderList(searchInput.value);
+    });
+
+    // İlk yüklənəndə
+    renderList();
 </script>
 </body>
 </html>
+
