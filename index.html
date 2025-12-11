@@ -2,7 +2,7 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8" />
-    <title>Aqrar və Mühəndislik Fakültəsi – PDF Kitabxana</title>
+    <title>LDÜ – Aqrar və Mühəndislik fakültəsi | PDF Kitabxanası</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,15 +12,15 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #f5f1e7;
-            color: #2b261b;
+            background: #f3efe6;
+            color: #2b2418;
         }
 
         header {
-            background: linear-gradient(135deg, #2f5d34, #7a5a33);
-            color: #fff;
-            padding: 18px 28px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+            background: linear-gradient(135deg, #2f6b3c, #7b5a2f);
+            color: white;
+            padding: 16px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         header h1 {
@@ -30,112 +30,106 @@
 
         header p {
             font-size: 14px;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
-        .layout {
-            display: grid;
-            grid-template-columns: 260px 260px 1fr;
-            height: calc(100vh - 70px);
+        /* İxtisas tabları (üst menyu) */
+        .tabs-wrapper {
+            background: #f7f1e6;
+            border-bottom: 1px solid #d2c3a8;
         }
 
-        /* SOL – ixtisas siyahısı */
-        .majors {
-            background: #efe3d0;
-            border-right: 1px solid #d0c3aa;
-            padding: 16px 14px;
-            overflow-y: auto;
-        }
-
-        .majors h2 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: #2f5d34;
-        }
-
-        .major-list {
-            list-style: none;
+        .tabs {
             display: flex;
-            flex-direction: column;
-            gap: 6px;
+            gap: 8px;
+            padding: 8px 16px;
+            overflow-x: auto;
+            scrollbar-width: thin;
         }
 
-        .major-btn {
-            width: 100%;
-            text-align: left;
-            padding: 8px 10px;
-            border-radius: 8px;
-            border: 1px solid transparent;
-            background: transparent;
+        .tab-btn {
+            white-space: nowrap;
+            border-radius: 999px;
+            border: 1px solid #c8b698;
+            padding: 6px 14px;
+            background: #fffaf3;
+            font-size: 13px;
             cursor: pointer;
-            font-size: 13px;
-            transition: 0.15s;
+            transition: background 0.2s, color 0.2s, transform 0.1s, box-shadow 0.1s;
         }
 
-        .major-btn:hover {
-            background: #e1f0e3;
-            border-color: #c2d6c4;
-        }
-
-        .major-btn.active {
-            background: #2f5d34;
-            color: #fff;
-            border-color: #2f5d34;
-        }
-
-        /* ORTA – seçilən ixtisasın PDF-ləri */
-        .files {
-            background: #f9f5ec;
-            border-right: 1px solid #d0c3aa;
-            padding: 16px 14px;
-            overflow-y: auto;
-        }
-
-        .files h2 {
-            font-size: 15px;
-            margin-bottom: 8px;
-            color: #7a5a33;
-        }
-
-        .files p {
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-
-        .file-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .file-btn {
-            width: 100%;
-            text-align: left;
-            padding: 7px 9px;
-            border-radius: 7px;
-            border: 1px solid #cbbda5;
-            background: #fffdf6;
-            cursor: pointer;
-            font-size: 13px;
-            transition: 0.15s;
-        }
-
-        .file-btn:hover {
-            background: #e5f3e7;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+        .tab-btn:hover {
+            background: #e4f1e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             transform: translateY(-1px);
         }
 
-        .file-btn.active {
-            background: #7a5a33;
-            color: #fff;
-            border-color: #7a5a33;
+        .tab-btn.active {
+            background: #2f6b3c;
+            color: white;
+            border-color: #2f6b3c;
         }
 
-        /* SAĞ – PDF viewer */
+        .app {
+            display: flex;
+            height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+            width: 320px;
+            background: #f6ecdd;
+            border-right: 1px solid #d4c3a2;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #2f6b3c;
+        }
+
+        .sidebar p {
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: #6a5c46;
+        }
+
+        .pdf-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pdf-btn {
+            width: 100%;
+            text-align: left;
+            padding: 9px 11px;
+            border-radius: 8px;
+            border: 1px solid #ccbda3;
+            background: #fffdf7;
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.3;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+        }
+
+        .pdf-btn:hover {
+            background: #e4f1e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+
+        .pdf-btn.active {
+            background: #2f6b3c;
+            color: white;
+            border-color: #2f6b3c;
+        }
+
         .viewer {
-            padding: 14px;
+            flex: 1;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -143,13 +137,13 @@
 
         .viewer-header {
             font-size: 14px;
-            color: #2f5d34;
+            color: #2f6b3c;
         }
 
         .viewer-box {
             flex: 1;
             border-radius: 10px;
-            border: 1px solid #cbbda5;
+            border: 1px solid #ccbda3;
             overflow: hidden;
             background: #ffffff;
         }
@@ -166,196 +160,243 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             font-size: 14px;
-            color: #7a6a54;
+            color: #7b6b54;
+            text-align: center;
             padding: 16px;
         }
 
-        @media (max-width: 960px) {
-            .layout {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto auto;
+        @media (max-width: 900px) {
+            .app {
+                flex-direction: column;
                 height: auto;
             }
-            .majors, .files, .viewer {
-                height: auto;
+            .sidebar {
+                width: 100%;
+                height: 260px;
                 border-right: none;
-                border-bottom: 1px solid #d0c3aa;
+                border-bottom: 1px solid #d4c3a2;
             }
             .viewer {
-                border-bottom: none;
-                height: 70vh;
+                height: 60vh;
             }
         }
     </style>
 </head>
 <body>
 <header>
-    <h1>Aqrar və Mühəndislik Fakültəsi – Rəsmi PDF Kitabxana</h1>
-    <p>ixtisaslar üzrə mövzu materialları və fənn sillabusları • Lənkəran Dövlət Universiteti</p>
+    <h1>LDÜ – Aqrar və Mühəndislik fakültəsi</h1>
+    <p>İxtisaslar üzrə PDF materialların elektron kitabxanası</p>
 </header>
 
-<div class="layout">
-    <!-- SOL – ixtisaslar -->
-    <aside class="majors">
-        <h2>İxtisaslar</h2>
-        <ul class="major-list" id="majorList"></ul>
+<!-- ÜST İXTİSAS MENYUSU -->
+<div class="tabs-wrapper">
+    <div class="tabs" id="majorTabs">
+        <!-- JavaScript ilə doldurulacaq -->
+    </div>
+</div>
+
+<div class="app">
+    <!-- SOL: PDF siyahısı -->
+    <aside class="sidebar">
+        <h2 id="majorTitle">İxtisas seçin</h2>
+        <p id="majorDesc">
+            Yuxarıdakı menyudan ixtisas seçin, sonra soldakı siyahıdan PDF adına klik edin.
+        </p>
+        <ul class="pdf-list" id="pdfList"></ul>
     </aside>
 
-    <!-- ORTA – seçilən ixtisasın faylları -->
-    <section class="files">
-        <h2 id="filesTitle">Torpaqşünaslıq və Aqrokimya – fayllar</h2>
-        <p id="filesDesc">
-            Torpaqşünaslıq və Aqrokimya ixtisası üçün mövzu PDF-ləri və sillabuslar.
-        </p>
-        <ul class="file-list" id="fileList"></ul>
-    </section>
-
-    <!-- SAĞ – PDF görüntüləyici -->
+    <!-- SAĞ: PDF görüntüləyici -->
     <section class="viewer">
         <div class="viewer-header" id="viewerHeader">
-            Fayl seçin: əvvəlcə soldan ixtisası, sonra ortadan PDF-i klikləyin.
+            Hələ heç bir fayl seçilməyib.
         </div>
         <div class="viewer-box" id="viewerBox">
-            <div class="empty-state">
-                Hələ heç bir PDF açılmayıb.<br>
-                Torpaqşünaslıq və Aqrokimya bölməsindən istədiyiniz faylı seçin.
+            <div class="empty-state" id="emptyState">
+                İxtisas və PDF seçdikdən sonra fayl burada açılacaq.
             </div>
         </div>
     </section>
 </div>
 
 <script>
-    // BÖLMƏLƏR (ixtisaslar) VƏ PDF-LƏR
+    // İXTİSASLAR
     const majors = [
         {
-            id: "torpaq",
+            id: "komputer",
+            name: "Kompüter mühəndisliyi",
+            desc: "Bu ixtisas üçün hələ PDF əlavə olunmayıb.",
+            pdfs: []
+        },
+        {
+            id: "it",
+            name: "İnformasiya texnologiyaları",
+            desc: "Bu ixtisas üçün hələ PDF əlavə olunmayıb.",
+            pdfs: []
+        },
+        {
+            id: "security",
+            name: "İnformasiya təhlükəsizliyi",
+            desc: "Bu ixtisas üçün hələ PDF əlavə olunmayıb.",
+            pdfs: []
+        },
+        {
+            id: "food",
+            name: "Qida mühəndisliyi",
+            desc: "Bu ixtisas üçün hələ PDF əlavə olunmayıb.",
+            pdfs: []
+        },
+        {
+            id: "wine",
+            name: "Şərabçılıq",
+            desc: "Bu ixtisas üçün hələ PDF əlavə olunmayıb.",
+            pdfs: []
+        },
+        {
+            id: "agroeng",
+            name: "Aqromühəndislik",
+            desc: "Bu ixtisas üçün hələ PDF əlavə olunmayıb.",
+            pdfs: []
+        },
+        {
+            id: "agronomy",
+            name: "Aqronomluq",
+            desc: "Bu ixtisas üçün hələ PDF əlavə olunmayıb.",
+            pdfs: []
+        },
+        {
+            id: "gardening",
+            name: "Bağçılıq və tərəvəzçilik",
+            desc: "Bu ixtisas üçün hələ PDF əlavə olunmayıb.",
+            pdfs: []
+        },
+        {
+            id: "soil",
             name: "Torpaqşünaslıq və Aqrokimya",
-            description: "Bu bölmədə Torpaqşünaslıq və Aqrokimya ixtisası üzrə mövzu PDF-ləri və sillabuslar toplanıb.",
-            files: [
-                { title: "Torpaqşünaslıq – 1", path: "pdf/torpaqşünasliq-1.pdf" },
-                { title: "Torpaqşünaslıq – 2", path: "pdf/torpaqşünasliq - 2.pdf" },
-                { title: "Torpaqşünaslıq sillabus", path: "pdf/torpaqşünasliq sillabus.pdf" },
-                { title: "Torpaq fizikası sillabus", path: "pdf/torpaqfizikası.sillabus.pdf" },
-                { title: "Torpaq mikrobiologiyası", path: "pdf/torpaq mikrobiologiyası.pdf" },
-                { title: "Aqrokimya mühazirələr", path: "pdf/Aqrokimya.pdf" },
-                { title: "Aqrokimya sillabus", path: "pdf/aqrokimya sillabus.pdf" },
-                { title: "I Kollektivium sualları (SS)", path: "pdf/I KOLLEKVIUM SUALLARI SS.pdf" },
-                { title: "II Kollektivium sualları", path: "pdf/II KOLLEKVIUM SUALLARI.pdf" },
-                { title: "Mikrobiologiya sillabus", path: "pdf/mikrobiologiya sillabus.pdf" },
-                { title: "Mülki müdafiə mövzu", path: "pdf/Mülki mudafie movzu.pdf" },
-                { title: "Mülki müdafiə sillabus", path: "pdf/mülki müdafie sillabus....pdf" },
-                { title: "Politologiya mühazirələr", path: "pdf/Politologiya mühazirələr.pdf" },
-                { title: "Politologiya sillabus", path: "pdf/politologiya sillabus.pdf" }
+            desc: "Bu bölmədə hazırda Torpaqşünaslıq və Aqrokimya ixtisasına aid mövzu və sillabus PDF-ləri yerləşdirilib.",
+            pdfs: [
+                { title: "Aqrokimya – sillabus", file: "pdf/aqrokimya sillabus.pdf" },
+                { title: "Aqrokimya – mühazirə mətnləri", file: "pdf/Aqrokimya.pdf" },
+                { title: "I Kollektiv sualları (SS)", file: "pdf/I KOLLEKVIUM SUALLARI SS.pdf" },
+                { title: "II Kollektiv sualları", file: "pdf/II KOLLEKVIUM SUALLARI.pdf" },
+                { title: "Mikrobiologiya – sillabus", file: "pdf/mikrobiologiya sillabus.pdf" },
+                { title: "Mülki müdafiə – mövzu", file: "pdf/Mülki mudafie movzu.pdf" },
+                { title: "Mülki müdafiə – sillabus", file: "pdf/mülki müdafie sillabus....pdf" },
+                { title: "Politologiya – mühazirələr", file: "pdf/Politologiya mühazirələr.pdf" },
+                { title: "Politologiya – sillabus", file: "pdf/politologiya sillabus.pdf" },
+                { title: "Torpaq mikrobiologiyası", file: "pdf/torpaq mikrobiologiyası.pdf" },
+                { title: "Torpaq fizikası – sillabus", file: "pdf/torpaqfizikasi.sillabus.pdf" },
+                { title: "Torpaqşünaslıq – 1", file: "pdf/torpaqşünasliq-1.pdf" },
+                { title: "Torpaqşünaslıq – 2", file: "pdf/torpaqşünasliq - 2.pdf" },
+                { title: "Torpaqşünaslıq – sillabus", file: "pdf/torpaqşünasliq sillabus.pdf" }
             ]
         },
-        { id: "komp",  name: "Kompüter mühəndisliyi",            description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
-        { id: "it",    name: "İnformasiya texnologiyaları",       description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
-        { id: "sec",   name: "İnformasiya təhlükəsizliyi",        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
-        { id: "food",  name: "Qida mühəndisliyi",                 description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
-        { id: "wine",  name: "Şərabçılıq",                        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
-        { id: "agroM", name: "Aqromühəndislik",                   description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
-        { id: "agron", name: "Aqronomluq",                        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
-        { id: "garden", name: "Bağçılıq və tərəvəzçilik",        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
-        { id: "forest", name: "Meşəçilik",                        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] }
+        {
+            id: "forest",
+            name: "Meşəçilik",
+            desc: "Bu ixtisas üçün hələ PDF əlavə olunmayıb.",
+            pdfs: []
+        }
     ];
 
-    const majorListEl  = document.getElementById("majorList");
-    const fileListEl   = document.getElementById("fileList");
-    const filesTitleEl = document.getElementById("filesTitle");
-    const filesDescEl  = document.getElementById("filesDesc");
+    const tabsContainer = document.getElementById("majorTabs");
+    const pdfListEl = document.getElementById("pdfList");
+    const viewerBox = document.getElementById("viewerBox");
     const viewerHeader = document.getElementById("viewerHeader");
-    const viewerBox    = document.getElementById("viewerBox");
+    const majorTitle = document.getElementById("majorTitle");
+    const majorDesc = document.getElementById("majorDesc");
+    const emptyState = document.getElementById("emptyState");
 
-    let currentMajorId = "torpaq";
-    let currentFileIndex = null;
+    let currentMajorId = null;
 
-    function renderMajors() {
-        majorListEl.innerHTML = "";
-        majors.forEach(major => {
-            const li = document.createElement("li");
+    function createTabs() {
+        majors.forEach((major) => {
             const btn = document.createElement("button");
-            btn.className = "major-btn" + (major.id === currentMajorId ? " active" : "");
+            btn.className = "tab-btn";
             btn.textContent = major.name;
+            btn.dataset.id = major.id;
+
             btn.addEventListener("click", () => {
-                currentMajorId = major.id;
-                currentFileIndex = null;
-                updateFiles();
-                setActiveMajorButton(btn);
-                clearViewer();
+                selectMajor(major.id);
             });
-            li.appendChild(btn);
-            majorListEl.appendChild(li);
+
+            tabsContainer.appendChild(btn);
         });
     }
 
-    function setActiveMajorButton(activeBtn) {
-        const all = document.querySelectorAll(".major-btn");
-        all.forEach(btn => btn.classList.remove("active"));
-        activeBtn.classList.add("active");
+    function selectMajor(id) {
+        currentMajorId = id;
+
+        // Tab aktivliyi
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+            if (btn.dataset.id === id) {
+                btn.classList.add("active");
+            } else {
+                btn.classList.remove("active");
+            }
+        });
+
+        const major = majors.find(m => m.id === id);
+        majorTitle.textContent = major.name;
+        majorDesc.textContent = major.desc;
+
+        renderPdfList(major);
+        clearViewer();
     }
 
-    function updateFiles() {
-        const major = majors.find(m => m.id === currentMajorId);
-        filesTitleEl.textContent = major.name + " – fayllar";
-        filesDescEl.textContent  = major.description;
+    function renderPdfList(major) {
+        pdfListEl.innerHTML = "";
 
-        fileListEl.innerHTML = "";
-
-        if (!major.files.length) {
-            const p = document.createElement("p");
-            p.textContent = "Bu ixtisas üçün PDF hələ əlavə olunmayıb.";
-            fileListEl.appendChild(p);
+        if (!major.pdfs || major.pdfs.length === 0) {
+            const li = document.createElement("li");
+            li.textContent = "Bu ixtisas üçün hələ PDF əlavə olunmayıb.";
+            li.style.fontSize = "13px";
+            li.style.color = "#7b6b54";
+            pdfListEl.appendChild(li);
             return;
         }
 
-        major.files.forEach((file, index) => {
+        major.pdfs.forEach((pdf, index) => {
             const li = document.createElement("li");
             const btn = document.createElement("button");
-            btn.className = "file-btn";
-            btn.textContent = file.title;
+            btn.className = "pdf-btn";
+            btn.textContent = (index + 1) + ". " + pdf.title;
             btn.addEventListener("click", () => {
-                openFile(index);
-                setActiveFileButton(btn);
+                openPdf(pdf, btn);
             });
             li.appendChild(btn);
-            fileListEl.appendChild(li);
+            pdfListEl.appendChild(li);
         });
     }
 
-    function setActiveFileButton(activeBtn) {
-        const all = document.querySelectorAll(".file-btn");
-        all.forEach(btn => btn.classList.remove("active"));
-        activeBtn.classList.add("active");
+    function clearViewer() {
+        viewerHeader.textContent = "Hələ heç bir fayl seçilməyib.";
+        viewerBox.innerHTML = "";
+        viewerBox.appendChild(emptyState);
+        emptyState.style.display = "flex";
+
+        document.querySelectorAll(".pdf-btn").forEach(btn => {
+            btn.classList.remove("active");
+        });
     }
 
-    function openFile(index) {
-        const major = majors.find(m => m.id === currentMajorId);
-        const file = major.files[index];
-        currentFileIndex = index;
-
-        viewerHeader.textContent = "Açıq fayl: " + file.title;
+    function openPdf(pdf, btn) {
+        viewerHeader.textContent = "Hazırda açıq fayl: " + pdf.title;
 
         const iframe = document.createElement("iframe");
-        iframe.src = file.path;
+        iframe.src = pdf.file;
 
         viewerBox.innerHTML = "";
         viewerBox.appendChild(iframe);
+
+        // Aktiv PDF düyməsi
+        document.querySelectorAll(".pdf-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
     }
 
-    function clearViewer() {
-        viewerHeader.textContent = "Fayl seçin: əvvəlcə soldan ixtisası, sonra ortadan PDF-i klikləyin.";
-        viewerBox.innerHTML = "";
-        const div = document.createElement("div");
-        div.className = "empty-state";
-        div.innerHTML = "Hələ heç bir PDF açılmayıb.<br>Torpaqşünaslıq və Aqrokimya bölməsindən istədiyiniz faylı seçin.";
-        viewerBox.appendChild(div);
-    }
-
-    // Səhifə yüklənəndə
-    renderMajors();
-    updateFiles();
+    // Səhifə açılan kimi tabları yarat və default olaraq Torpaqşünaslıq və Aqrokimya-nı aç
+    createTabs();
+    selectMajor("soil");
 </script>
 </body>
 </html>
