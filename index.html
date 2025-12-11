@@ -1,1 +1,361 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8" />
+    <title>Aqrar və Mühəndislik Fakültəsi – PDF Kitabxana</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f1e7;
+            color: #2b261b;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2f5d34, #7a5a33);
+            color: #fff;
+            padding: 18px 28px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 260px 260px 1fr;
+            height: calc(100vh - 70px);
+        }
+
+        /* SOL – ixtisas siyahısı */
+        .majors {
+            background: #efe3d0;
+            border-right: 1px solid #d0c3aa;
+            padding: 16px 14px;
+            overflow-y: auto;
+        }
+
+        .majors h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #2f5d34;
+        }
+
+        .major-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .major-btn {
+            width: 100%;
+            text-align: left;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            background: transparent;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.15s;
+        }
+
+        .major-btn:hover {
+            background: #e1f0e3;
+            border-color: #c2d6c4;
+        }
+
+        .major-btn.active {
+            background: #2f5d34;
+            color: #fff;
+            border-color: #2f5d34;
+        }
+
+        /* ORTA – seçilən ixtisasın PDF-ləri */
+        .files {
+            background: #f9f5ec;
+            border-right: 1px solid #d0c3aa;
+            padding: 16px 14px;
+            overflow-y: auto;
+        }
+
+        .files h2 {
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: #7a5a33;
+        }
+
+        .files p {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .file-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .file-btn {
+            width: 100%;
+            text-align: left;
+            padding: 7px 9px;
+            border-radius: 7px;
+            border: 1px solid #cbbda5;
+            background: #fffdf6;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.15s;
+        }
+
+        .file-btn:hover {
+            background: #e5f3e7;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+            transform: translateY(-1px);
+        }
+
+        .file-btn.active {
+            background: #7a5a33;
+            color: #fff;
+            border-color: #7a5a33;
+        }
+
+        /* SAĞ – PDF viewer */
+        .viewer {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .viewer-header {
+            font-size: 14px;
+            color: #2f5d34;
+        }
+
+        .viewer-box {
+            flex: 1;
+            border-radius: 10px;
+            border: 1px solid #cbbda5;
+            overflow: hidden;
+            background: #ffffff;
+        }
+
+        .viewer-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .empty-state {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+            color: #7a6a54;
+            padding: 16px;
+        }
+
+        @media (max-width: 960px) {
+            .layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                height: auto;
+            }
+            .majors, .files, .viewer {
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #d0c3aa;
+            }
+            .viewer {
+                border-bottom: none;
+                height: 70vh;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Aqrar və Mühəndislik Fakültəsi – Rəsmi PDF Kitabxana</h1>
+    <p>ixtisaslar üzrə mövzu materialları və fənn sillabusları • Lənkəran Dövlət Universiteti</p>
+</header>
+
+<div class="layout">
+    <!-- SOL – ixtisaslar -->
+    <aside class="majors">
+        <h2>İxtisaslar</h2>
+        <ul class="major-list" id="majorList"></ul>
+    </aside>
+
+    <!-- ORTA – seçilən ixtisasın faylları -->
+    <section class="files">
+        <h2 id="filesTitle">Torpaqşünaslıq və Aqrokimya – fayllar</h2>
+        <p id="filesDesc">
+            Torpaqşünaslıq və Aqrokimya ixtisası üçün mövzu PDF-ləri və sillabuslar.
+        </p>
+        <ul class="file-list" id="fileList"></ul>
+    </section>
+
+    <!-- SAĞ – PDF görüntüləyici -->
+    <section class="viewer">
+        <div class="viewer-header" id="viewerHeader">
+            Fayl seçin: əvvəlcə soldan ixtisası, sonra ortadan PDF-i klikləyin.
+        </div>
+        <div class="viewer-box" id="viewerBox">
+            <div class="empty-state">
+                Hələ heç bir PDF açılmayıb.<br>
+                Torpaqşünaslıq və Aqrokimya bölməsindən istədiyiniz faylı seçin.
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    // BÖLMƏLƏR (ixtisaslar) VƏ PDF-LƏR
+    const majors = [
+        {
+            id: "torpaq",
+            name: "Torpaqşünaslıq və Aqrokimya",
+            description: "Bu bölmədə Torpaqşünaslıq və Aqrokimya ixtisası üzrə mövzu PDF-ləri və sillabuslar toplanıb.",
+            files: [
+                { title: "Torpaqşünaslıq – 1", path: "pdf/torpaqşünasliq-1.pdf" },
+                { title: "Torpaqşünaslıq – 2", path: "pdf/torpaqşünasliq - 2.pdf" },
+                { title: "Torpaqşünaslıq sillabus", path: "pdf/torpaqşünasliq sillabus.pdf" },
+                { title: "Torpaq fizikası sillabus", path: "pdf/torpaqfizikası.sillabus.pdf" },
+                { title: "Torpaq mikrobiologiyası", path: "pdf/torpaq mikrobiologiyası.pdf" },
+                { title: "Aqrokimya mühazirələr", path: "pdf/Aqrokimya.pdf" },
+                { title: "Aqrokimya sillabus", path: "pdf/aqrokimya sillabus.pdf" },
+                { title: "I Kollektivium sualları (SS)", path: "pdf/I KOLLEKVIUM SUALLARI SS.pdf" },
+                { title: "II Kollektivium sualları", path: "pdf/II KOLLEKVIUM SUALLARI.pdf" },
+                { title: "Mikrobiologiya sillabus", path: "pdf/mikrobiologiya sillabus.pdf" },
+                { title: "Mülki müdafiə mövzu", path: "pdf/Mülki mudafie movzu.pdf" },
+                { title: "Mülki müdafiə sillabus", path: "pdf/mülki müdafie sillabus....pdf" },
+                { title: "Politologiya mühazirələr", path: "pdf/Politologiya mühazirələr.pdf" },
+                { title: "Politologiya sillabus", path: "pdf/politologiya sillabus.pdf" }
+            ]
+        },
+        { id: "komp",  name: "Kompüter mühəndisliyi",            description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
+        { id: "it",    name: "İnformasiya texnologiyaları",       description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
+        { id: "sec",   name: "İnformasiya təhlükəsizliyi",        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
+        { id: "food",  name: "Qida mühəndisliyi",                 description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
+        { id: "wine",  name: "Şərabçılıq",                        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
+        { id: "agroM", name: "Aqromühəndislik",                   description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
+        { id: "agron", name: "Aqronomluq",                        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
+        { id: "garden", name: "Bağçılıq və tərəvəzçilik",        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] },
+        { id: "forest", name: "Meşəçilik",                        description: "Bu ixtisas üçün materiallar tezliklə əlavə olunacaq.", files: [] }
+    ];
+
+    const majorListEl  = document.getElementById("majorList");
+    const fileListEl   = document.getElementById("fileList");
+    const filesTitleEl = document.getElementById("filesTitle");
+    const filesDescEl  = document.getElementById("filesDesc");
+    const viewerHeader = document.getElementById("viewerHeader");
+    const viewerBox    = document.getElementById("viewerBox");
+
+    let currentMajorId = "torpaq";
+    let currentFileIndex = null;
+
+    function renderMajors() {
+        majorListEl.innerHTML = "";
+        majors.forEach(major => {
+            const li = document.createElement("li");
+            const btn = document.createElement("button");
+            btn.className = "major-btn" + (major.id === currentMajorId ? " active" : "");
+            btn.textContent = major.name;
+            btn.addEventListener("click", () => {
+                currentMajorId = major.id;
+                currentFileIndex = null;
+                updateFiles();
+                setActiveMajorButton(btn);
+                clearViewer();
+            });
+            li.appendChild(btn);
+            majorListEl.appendChild(li);
+        });
+    }
+
+    function setActiveMajorButton(activeBtn) {
+        const all = document.querySelectorAll(".major-btn");
+        all.forEach(btn => btn.classList.remove("active"));
+        activeBtn.classList.add("active");
+    }
+
+    function updateFiles() {
+        const major = majors.find(m => m.id === currentMajorId);
+        filesTitleEl.textContent = major.name + " – fayllar";
+        filesDescEl.textContent  = major.description;
+
+        fileListEl.innerHTML = "";
+
+        if (!major.files.length) {
+            const p = document.createElement("p");
+            p.textContent = "Bu ixtisas üçün PDF hələ əlavə olunmayıb.";
+            fileListEl.appendChild(p);
+            return;
+        }
+
+        major.files.forEach((file, index) => {
+            const li = document.createElement("li");
+            const btn = document.createElement("button");
+            btn.className = "file-btn";
+            btn.textContent = file.title;
+            btn.addEventListener("click", () => {
+                openFile(index);
+                setActiveFileButton(btn);
+            });
+            li.appendChild(btn);
+            fileListEl.appendChild(li);
+        });
+    }
+
+    function setActiveFileButton(activeBtn) {
+        const all = document.querySelectorAll(".file-btn");
+        all.forEach(btn => btn.classList.remove("active"));
+        activeBtn.classList.add("active");
+    }
+
+    function openFile(index) {
+        const major = majors.find(m => m.id === currentMajorId);
+        const file = major.files[index];
+        currentFileIndex = index;
+
+        viewerHeader.textContent = "Açıq fayl: " + file.title;
+
+        const iframe = document.createElement("iframe");
+        iframe.src = file.path;
+
+        viewerBox.innerHTML = "";
+        viewerBox.appendChild(iframe);
+    }
+
+    function clearViewer() {
+        viewerHeader.textContent = "Fayl seçin: əvvəlcə soldan ixtisası, sonra ortadan PDF-i klikləyin.";
+        viewerBox.innerHTML = "";
+        const div = document.createElement("div");
+        div.className = "empty-state";
+        div.innerHTML = "Hələ heç bir PDF açılmayıb.<br>Torpaqşünaslıq və Aqrokimya bölməsindən istədiyiniz faylı seçin.";
+        viewerBox.appendChild(div);
+    }
+
+    // Səhifə yüklənəndə
+    renderMajors();
+    updateFiles();
+</script>
+</body>
+</html>
