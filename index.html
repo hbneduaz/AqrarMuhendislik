@@ -1,132 +1,426 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8">
-<title>HBN – LDU Aqrar və Mühəndislik Fakültəsi PDF Arşivi</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HBN - LDU Aqrar və Mühəndislik PDF arşivi</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f6f3ea;
-}
-header {
-    background: #2d5a27;
-    color: white;
-    padding: 15px;
-    font-size: 22px;
-    text-align: center;
-}
-nav {
-    background: #e8e3d1;
-    padding: 10px;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-    border-bottom: 2px solid #c7bea3;
-}
-nav button {
-    padding: 10px 16px;
-    background: #fff;
-    border: 1px solid #b9ae95;
-    cursor: pointer;
-    border-radius: 6px;
-    font-size: 15px;
-}
-nav button:hover {
-    background: #d9eed6;
-}
-#content {
-    padding: 20px;
-}
-.pdf-item {
-    padding: 10px;
-    margin-bottom: 8px;
-    background: #ffffff;
-    border: 1px solid #c3b9a4;
-    border-radius: 6px;
-    cursor: pointer;
-}
-.pdf-item:hover {
-    background: #e6f5e1;
-}
-iframe {
-    width: 100%;
-    height: 600px;
-    border: none;
-    margin-top: 15px;
-}
-</style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f1ea;
+            color: #2d261b;
+        }
 
-<script>
-function showSection(section) {
-    const content = document.getElementById("content");
+        header {
+            background: linear-gradient(135deg, #355e3b, #6b4f2c);
+            color: #fff;
+            padding: 16px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        }
 
-    // -------------------------
-    // TORPAQŞÜNASLIQ VƏ AQROKİMYA BÖLMƏSİ
-    // -------------------------
-    if (section === "torpaq") {
-        content.innerHTML = `
-        <h2>Torpaqşünaslıq və Aqrokimya – PDF Materialları</h2>
+        header h1 {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
 
-        <div class='pdf-item' onclick="openPDF('pdf/aqrokimya.pdf')">Aqrokimya</div>
-        <div class='pdf-item' onclick="openPDF('pdf/aqrokimya_syllabus.pdf')">Aqrokimya – Syllabus</div>
+        header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
 
-        <div class='pdf-item' onclick="openPDF('pdf/mikrobiologiya.pdf')">Mikrobiologiya</div>
-        <div class='pdf-item' onclick="openPDF('pdf/mikrobiologiya_syllabus.pdf')">Mikrobiologiya – Syllabus</div>
+        .dept-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
 
-        <div class='pdf-item' onclick="openPDF('pdf/mulki_mudafie_movzu.pdf')">Mülki Müdafiə – Mövzu</div>
-        <div class='pdf-item' onclick="openPDF('pdf/mulki_mudafie_syllabus.pdf')">Mülki Müdafiə – Syllabus</div>
+        .dept-btn {
+            border: none;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            color: #f7f7f7;
+            border: 1px solid rgba(255,255,255,0.25);
+            transition: background 0.2s, transform 0.1s;
+        }
 
-        <div class='pdf-item' onclick="openPDF('pdf/politologiya_muhazireler.pdf')">Politologiya – Mühazirələr</div>
-        <div class='pdf-item' onclick="openPDF('pdf/politologiya_syllabus.pdf')">Politologiya – Syllabus</div>
+        .dept-btn:hover {
+            background: rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
 
-        <div class='pdf-item' onclick="openPDF('pdf/torpaqfizikasi_syllabus.pdf')">Torpaq Fizikası – Syllabus</div>
+        .dept-btn.active {
+            background: #f4f1ea;
+            color: #2d261b;
+        }
 
-        <div class='pdf-item' onclick="openPDF('pdf/torpaqsunasliq_1.pdf')">Torpaqşünaslıq - 1</div>
-        <div class='pdf-item' onclick="openPDF('pdf/torpaqsunasliq_2.pdf')">Torpaqşünaslıq - 2</div>
-        <div class='pdf-item' onclick="openPDF('pdf/torpaqsunasliq_syllabus.pdf')">Torpaqşünaslıq – Syllabus</div>
+        .app {
+            display: flex;
+            height: calc(100vh - 120px);
+        }
 
-        <iframe id="viewer"></iframe>
-        `;
-        return;
-    }
+        .sidebar {
+            width: 320px;
+            border-right: 1px solid #d0c2aa;
+            background: #f0e6d8;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-    // -------------------------
-    // DIGƏR İXTİSASLAR (boş qalır)
-    // -------------------------
-    content.innerHTML = `<h2>${section} bölməsi hələ boşdur.</h2>`;
-}
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #355e3b;
+        }
 
-function openPDF(file) {
-    document.getElementById("viewer").src = file;
-}
-</script>
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
 
+        .search-box input {
+            width: 100%;
+            padding: 6px 8px;
+            border-radius: 8px;
+            border: 1px solid #c1b297;
+            font-size: 13px;
+        }
+
+        .pdf-list {
+            list-style: none;
+            margin-top: 8px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pdf-btn {
+            width: 100%;
+            text-align: left;
+            padding: 8px 9px;
+            border-radius: 8px;
+            border: 1px solid #ccbda3;
+            background: #fffaf3;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s, box-shadow 0.1s, transform 0.1s;
+        }
+
+        .pdf-btn:hover {
+            background: #e4f1e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+
+        .pdf-btn.active {
+            background: #355e3b;
+            color: #fff;
+            border-color: #355e3b;
+        }
+
+        .no-pdf {
+            font-size: 13px;
+            color: #7b6b54;
+            margin-top: 4px;
+        }
+
+        .viewer {
+            flex: 1;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .viewer-header {
+            font-size: 13px;
+            color: #355e3b;
+        }
+
+        .viewer-box {
+            flex: 1;
+            border-radius: 10px;
+            border: 1px solid #ccbda3;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        .viewer-box iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .empty-state {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 14px;
+            color: #7b6b54;
+            padding: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .app {
+                flex-direction: column;
+                height: auto;
+            }
+            .sidebar {
+                width: 100%;
+                height: 260px;
+                border-right: none;
+                border-bottom: 1px solid #d0c2aa;
+            }
+            .viewer {
+                height: calc(100vh - 380px);
+            }
+        }
+    </style>
 </head>
-
 <body>
-
 <header>
-    HBN – LDU Aqrar və Mühəndislik Fakültəsi PDF Arşivi
+    <h1>HBN - LDU Aqrar və Mühəndislik PDF arşivi</h1>
+    <p>Aqrar və Mühəndislik fakültəsi ixtisasları üçün elektron PDF mərkəzi</p>
+
+    <!-- İXTİSAS BÖLMƏLƏRİ -->
+    <div class="dept-bar" id="deptBar">
+        <!-- JavaScript-lə doldurulacaq -->
+    </div>
 </header>
 
-<nav>
-    <button onclick="showSection('torpaq')">Torpaqşünaslıq və Aqrokimya</button>
-    <button onclick="showSection('Kompüter mühəndisliyi')">Kompüter mühəndisliyi</button>
-    <button onclick="showSection('İnformasiya texnologiyaları')">İnformasiya texnologiyaları</button>
-    <button onclick="showSection('İnformasiya təhlükəsizliyi')">İnformasiya təhlükəsizliyi</button>
-    <button onclick="showSection('Qida mühəndisliyi')">Qida mühəndisliyi</button>
-    <button onclick="showSection('Baytarlıq')">Baytarlıq</button>
-    <button onclick="showSection('Aqronomluq')">Aqronomluq</button>
-    <button onclick="showSection('Bağçılıq və tərəvəzçilik')">Bağçılıq və tərəvəzçilik</button>
-    <button onclick="showSection('Meşəçilik')">Meşəçilik</button>
-</nav>
+<div class="app">
+    <!-- SOL BLOK -->
+    <aside class="sidebar">
+        <div>
+            <div class="sidebar-title" id="currentDeptTitle">
+                Torpaqşünaslıq və Aqrokimya
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="PDF axtar..." />
+            </div>
+        </div>
 
-<div id="content">
-    <h3>Bölmə seçin.</h3>
+        <ul class="pdf-list" id="pdfList">
+            <!-- JS ilə doldurulacaq -->
+        </ul>
+
+        <div class="no-pdf" id="noPdfMessage" style="display: none;">
+            Bu ixtisas üçün hələ PDF əlavə edilməyib.
+        </div>
+    </aside>
+
+    <!-- SAĞ BLOK -->
+    <section class="viewer">
+        <div class="viewer-header" id="viewerHeader">
+            PDF seçin – soldan istədiyiniz fayla klik edin.
+        </div>
+        <div class="viewer-box" id="viewerBox">
+            <div class="empty-state">
+                Heç bir fayl seçilməyib.<br />
+                Soldakı siyahıdan PDF seçdikdə burada açılacaq.
+            </div>
+        </div>
+    </section>
 </div>
 
+<script>
+    // 📂 İXTİSASLAR
+    const departments = [
+        { id: "komputer",  name: "Kompüter mühəndisliyi",          pdfs: [] },
+        { id: "it",        name: "İnformasiya texnologiyaları",    pdfs: [] },
+        { id: "security",  name: "İnformasiya təhlükəsizliyi",     pdfs: [] },
+        { id: "food",      name: "Qida mühəndisliyi",              pdfs: [] },
+        { id: "serab",     name: "Şərabçılıq",                      pdfs: [] },
+        { id: "agroeng",   name: "Aqromühəndislik",                pdfs: [] },
+        { id: "agronom",   name: "Agronomluq",                     pdfs: [] },
+        { id: "bagciliq",  name: "Bağçılıq və tərəvəzçilik",       pdfs: [] },
+
+        // 🔥 BURADA PDF-LƏR VAR:
+        {
+            id: "torpaq",
+            name: "Torpaqşünaslıq və Aqrokimya",
+            pdfs: [
+                { title: "Aqrokimya",                               file: "pdf/aqrokimya.pdf" },
+                { title: "Aqrokimya sillabus",                      file: "pdf/aqrokimya_syllabus.pdf" },
+                { title: "Mikrobiologiya",                          file: "pdf/mikrobiologiya.pdf" },
+                { title: "Mikrobiologiya sillabus",                 file: "pdf/mikrobiologiya_syllabus.pdf" },
+                { title: "Mülki müdafiə mövzu",                     file: "pdf/mulki_mudafie_movzu.pdf" },
+                { title: "Mülki müdafiə sillabus",                  file: "pdf/mulki_mudafie_syllabus.pdf" },
+                { title: "Politologiya mühazirələr",                file: "pdf/politologiya_muhazireler.pdf" },
+                { title: "Politologiya sillabus",                   file: "pdf/politologiya_syllabus.pdf" },
+                { title: "Torpaq fizikasI sillabus",                file: "pdf/torpaqfizikasi_syllabus.pdf" },
+                { title: "Torpaqşünaslıq - 1",                      file: "pdf/torpaqshunasliq_1.pdf" },
+                { title: "Torpaqşünaslıq - 2",                      file: "pdf/torpaqshunasliq_2.pdf" },
+                { title: "Torpaqşünaslıq sillabus",                 file: "pdf/torpaqshunasliq_syllabus.pdf" }
+            ]
+        },
+
+        { id: "mese", name: "Meşəçilik", pdfs: [] }
+    ];
+
+    const deptBar       = document.getElementById("deptBar");
+    const pdfListEl     = document.getElementById("pdfList");
+    const searchInput   = document.getElementById("searchInput");
+    const viewerBox     = document.getElementById("viewerBox");
+    const viewerHeader  = document.getElementById("viewerHeader");
+    const currentDeptTitle = document.getElementById("currentDeptTitle");
+    const noPdfMessage  = document.getElementById("noPdfMessage");
+
+    let currentDeptId = "torpaq";  // başlanğıc olaraq Torpaqşünaslıq və Aqrokimya
+    let currentButtons = [];
+    let allRenderedPdfs = [];
+
+    function initDeptBar() {
+        departments.forEach(dept => {
+            const btn = document.createElement("button");
+            btn.className = "dept-btn";
+            btn.textContent = dept.name;
+            btn.dataset.deptId = dept.id;
+            btn.addEventListener("click", () => {
+                setActiveDept(dept.id);
+            });
+            deptBar.appendChild(btn);
+        });
+        updateDeptButtons();
+    }
+
+    function updateDeptButtons() {
+        const buttons = deptBar.querySelectorAll(".dept-btn");
+        buttons.forEach(btn => {
+            if (btn.dataset.deptId === currentDeptId) {
+                btn.classList.add("active");
+            } else {
+                btn.classList.remove("active");
+            }
+        });
+    }
+
+    function setActiveDept(deptId) {
+        currentDeptId = deptId;
+        updateDeptButtons();
+        const dept = departments.find(d => d.id === deptId);
+        currentDeptTitle.textContent = dept.name;
+        searchInput.value = "";
+        renderPdfList();
+        clearViewer();
+    }
+
+    function renderPdfList() {
+        const dept = departments.find(d => d.id === currentDeptId);
+        pdfListEl.innerHTML = "";
+        allRenderedPdfs = [];
+
+        if (!dept || dept.pdfs.length === 0) {
+            noPdfMessage.style.display = "block";
+            return;
+        } else {
+            noPdfMessage.style.display = "none";
+        }
+
+        dept.pdfs.forEach((pdf, index) => {
+            const li = document.createElement("li");
+            const btn = document.createElement("button");
+            btn.className = "pdf-btn";
+            btn.textContent = pdf.title;
+            btn.dataset.index = index;
+
+            btn.addEventListener("click", () => {
+                openPdf(pdf);
+                setActivePdfButton(btn);
+            });
+
+            li.appendChild(btn);
+            pdfListEl.appendChild(li);
+            allRenderedPdfs.push({ pdf, button: btn });
+        });
+    }
+
+    function setActivePdfButton(activeBtn) {
+        const buttons = pdfListEl.querySelectorAll(".pdf-btn");
+        buttons.forEach(btn => btn.classList.remove("active"));
+        if (activeBtn) activeBtn.classList.add("active");
+    }
+
+    function openPdf(pdf) {
+        viewerHeader.textContent = "Hazırda açıq fayl: " + pdf.title;
+        const iframe = document.createElement("iframe");
+        iframe.src = pdf.file;
+        viewerBox.innerHTML = "";
+        viewerBox.appendChild(iframe);
+    }
+
+    function clearViewer() {
+        viewerHeader.textContent = "PDF seçin – soldan istədiyiniz fayla klik edin.";
+        viewerBox.innerHTML = `
+            <div class="empty-state">
+                Heç bir fayl seçilməyib.<br />
+                Soldakı siyahıdan PDF seçdikdə burada açılacaq.
+            </div>
+        `;
+    }
+
+    // 🔍 Axtarış
+    searchInput.addEventListener("input", () => {
+        const query = searchInput.value.toLowerCase().trim();
+        const dept = departments.find(d => d.id === currentDeptId);
+
+        pdfListEl.innerHTML = "";
+        setActivePdfButton(null);
+
+        if (!dept || dept.pdfs.length === 0) {
+            noPdfMessage.style.display = "block";
+            return;
+        }
+
+        const filtered = dept.pdfs.filter(p => p.title.toLowerCase().includes(query));
+
+        if (filtered.length === 0) {
+            noPdfMessage.style.display = "block";
+            noPdfMessage.textContent = "Bu axtarış üçün nəticə tapılmadı.";
+            clearViewer();
+            return;
+        } else {
+            noPdfMessage.style.display = "none";
+            noPdfMessage.textContent = "Bu ixtisas üçün hələ PDF əlavə edilməyib.";
+        }
+
+        filtered.forEach(pdf => {
+            const li = document.createElement("li");
+            const btn = document.createElement("button");
+            btn.className = "pdf-btn";
+            btn.textContent = pdf.title;
+
+            btn.addEventListener("click", () => {
+                openPdf(pdf);
+                setActivePdfButton(btn);
+            });
+
+            li.appendChild(btn);
+            pdfListEl.appendChild(li);
+        });
+    });
+
+    // 🚀 Start
+    initDeptBar();
+    renderPdfList();
+</script>
 </body>
 </html>
