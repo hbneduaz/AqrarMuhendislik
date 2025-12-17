@@ -41,25 +41,15 @@
       backdrop-filter: blur(10px);
     }
     .toprow{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .brand{display:flex;gap:10px;align-items:center;min-width:260px;}
+    .brand{display:flex;gap:10px;align-items:center;}
     .logo{
       width:38px;height:38px;border-radius:12px;
       background: radial-gradient(circle at 30% 30%, rgba(74,222,128,.9), rgba(34,197,94,.25) 55%, rgba(0,0,0,.2));
       border:1px solid rgba(255,255,255,.10);
-      box-shadow: 0 8px 18px rgba(0,0,0,.25);
     }
-    .brand h1{font-size:16px;margin:0;line-height:1.25}
-    .brand .sub{font-size:12px;color:var(--muted);margin-top:2px}
-    .search{flex:1;min-width:240px;display:flex;gap:10px;justify-content:flex-end}
-    .search input{
-      width:min(520px,100%);
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:999px;
-      outline:none;
-    }
+    .brand h1{font-size:16px;margin:0}
+    .brand .sub{font-size:12px;color:var(--muted)}
+
     nav{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
     .tab{
       border:1px solid rgba(255,255,255,.12);
@@ -74,28 +64,34 @@
       background: rgba(74,222,128,.15);
       border-color: rgba(74,222,128,.55);
     }
+
     main{
       margin-top:16px;
-      background: rgba(20,33,24,.75);
+      background: rgba(15,26,19,.85);
       border:1px solid var(--line);
       border-radius: var(--radius);
     }
-    .sectionHead{padding:16px;border-bottom:1px solid var(--line)}
-    .list{padding:10px}
+    .sectionHead{
+      padding:16px;
+      border-bottom:1px solid var(--line);
+      display:flex;justify-content:space-between
+    }
+    .list{padding:12px}
     .item{
       display:flex;justify-content:space-between;align-items:center;
-      padding:12px;margin:8px;border:1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius2);
+      padding:12px;margin-bottom:10px;
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:12px;
       background: rgba(255,255,255,.03);
     }
     .btn{
-      text-decoration:none;
-      font-size:13px;
       padding:8px 12px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      color:var(--text);
+      border:1px solid rgba(255,255,255,.15);
+      text-decoration:none;color:var(--text);
+      font-size:13px;
     }
+    .btn.primary{border-color:rgba(74,222,128,.6)}
   </style>
 </head>
 
@@ -107,11 +103,8 @@
       <div class="logo"></div>
       <div>
         <h1>HBN - LDU Aqrar və Mühəndislik PDF Arxivi</h1>
-        <div class="sub">Bölmə seç → PDF aç və yüklə</div>
+        <div class="sub">Bölmə seç → PDF aç</div>
       </div>
-    </div>
-    <div class="search">
-      <input id="searchInput" placeholder="PDF axtar..." />
     </div>
   </div>
   <nav id="tabs"></nav>
@@ -120,82 +113,85 @@
 <main>
   <div class="sectionHead">
     <h2 id="sectionTitle"></h2>
+    <div id="count"></div>
   </div>
   <div class="list" id="list"></div>
 </main>
 </div>
 
 <script>
-const PDF_BASE = "pdf/";
+const PDF_BASE="pdf/";
 
-const SECTIONS = [
-  "Kompüter mühəndisliyi",
-  "İnformasiya texnologiyaları",
-  "İnformasiya təhlükəsizliyi",
-  "Qida mühəndisliyi",
-  "Şərabçılıq",
-  "Aqromühəndislik",
-  "Aqronomluq",
-  "Bağçılıq və tərəvəzçilik",
-  "Torpaqşünaslıq və Aqrokimya",
-  "Meşəçilik"
+const SECTIONS=[
+ "Kompüter mühəndisliyi",
+ "İnformasiya texnologiyaları",
+ "İnformasiya təhlükəsizliyi",
+ "Qida mühəndisliyi",
+ "Şərabçılıq",
+ "Aqromühəndislik",
+ "Aqronomluq",
+ "Bağçılıq və tərəvəzçilik",
+ "Torpaqşünaslıq və Aqrokimya",
+ "Meşəçilik"
 ];
 
-const FILES = {
-  "Torpaqşünaslıq və Aqrokimya": [
-    { title:"Aqrokimya", file:"aqrokimya.pdf" },
-    { title:"Aqrokimya — sillabus", file:"aqrokimya_syllabus.pdf" },
-    { title:"Botanika — sillabus", file:"botanika_syllabus.pdf" },
-    { title:"Azərbaycan dili — sillabus", file:"azdili_syllabus.pdf" },
-    { title:"Rus dili — sillabus", file:"rusdili_syllabus.pdf" },   // ← YENİ ƏLAVƏ
-    { title:"Torpaqşünaslıq 1", file:"torpaqshunas_one.pdf" },
-    { title:"Torpaqşünaslıq 2", file:"torpaqshunastwo.pdf" },
-    { title:"Torpaqşünaslıq — sillabus", file:"torpaqshunas_syllabus.pdf" },
-    { title:"Mikrobiologiya", file:"mikrobiologiya.pdf" },
-    { title:"Mikrobiologiya — sillabus", file:"mikrobiologiya_syllabus.pdf" },
-    { title:"Mülki müdafiə — mövzu", file:"mulki_mudafie_movzu.pdf" },
-    { title:"Mülki müdafiə — sillabus", file:"mulki_mudafie_syllabus.pdf" },
-    { title:"Politologiya — mühazirələr", file:"politologiya_muhazireler.pdf" },
-    { title:"Politologiya — sillabus", file:"politologiya_syllabus.pdf" }
-  ],
+const FILES={
+ "Torpaqşünaslıq və Aqrokimya":[
+  {title:"Aqrokimya",file:"aqrokimya.pdf"},
+  {title:"Aqrokimya — sillabus",file:"aqrokimya_syllabus.pdf"},
+  {title:"Mikrobiologiya",file:"mikrobiologiya.pdf"},
+  {title:"Mikrobiologiya — sillabus",file:"mikrobiologiya_syllabus.pdf"},
+  {title:"Torpaqşünaslıq 1",file:"torpaqshunas_one.pdf"},
+  {title:"Torpaqşünaslıq 2",file:"torpaqshunastwo.pdf"},
+  {title:"Torpaqşünaslıq — sillabus",file:"torpaqshunas_syllabus.pdf"},
+  {title:"Botanika — sillabus",file:"botanika_syllabus.pdf"},
+  {title:"Azərbaycan dili — sillabus",file:"azdili_syllabus.pdf"},
 
-  "İnformasiya texnologiyaları": [
-    { title:"Mülki müdafiə — mövzu", file:"mulki_mudafie_movzu.pdf" },
-    { title:"Mülki müdafiə — sillabus", file:"mulki_mudafie_syllabus.pdf" },
-    { title:"Politologiya — mühazirələr", file:"politologiya_muhazireler.pdf" },
-    { title:"Politologiya — sillabus", file:"politologiya_syllabus.pdf" }
-  ]
+  /* 🔴 YENİ ƏLAVƏ */
+  {title:"Rus dili — sillabus",file:"rusdili_syllabus.pdf"}
+ ]
 };
 
-SECTIONS.forEach(s=>{ if(!FILES[s]) FILES[s]=[] });
+SECTIONS.forEach(s=>FILES[s]=FILES[s]||[]);
 
 let active="Torpaqşünaslıq və Aqrokimya";
 
+const tabs=document.getElementById("tabs");
+const list=document.getElementById("list");
+const title=document.getElementById("sectionTitle");
+const count=document.getElementById("count");
+
 function renderTabs(){
-  tabs.innerHTML="";
-  SECTIONS.forEach(s=>{
-    let b=document.createElement("button");
-    b.textContent=s;
-    b.className="tab"+(s===active?" active":"");
-    b.onclick=()=>{active=s;renderTabs();renderList()};
-    tabs.appendChild(b);
-  });
+ tabs.innerHTML="";
+ SECTIONS.forEach(s=>{
+  const b=document.createElement("button");
+  b.className="tab"+(s===active?" active":"");
+  b.textContent=s;
+  b.onclick=()=>{active=s;render()};
+  tabs.appendChild(b);
+ });
 }
-function renderList(){
-  sectionTitle.textContent=active;
-  list.innerHTML="";
-  FILES[active].forEach(x=>{
-    list.innerHTML+=`
-    <div class="item">
-      <div>${x.title}<br><small>${x.file}</small></div>
-      <div>
-        <a class="btn" href="${PDF_BASE+x.file}" target="_blank">Aç</a>
-        <a class="btn" href="${PDF_BASE+x.file}" download>Yüklə</a>
-      </div>
-    </div>`;
-  });
+
+function render(){
+ title.textContent=active;
+ list.innerHTML="";
+ const arr=FILES[active];
+ count.textContent=arr.length+" PDF";
+ arr.forEach(x=>{
+  const d=document.createElement("div");
+  d.className="item";
+  d.innerHTML=`
+   <div>${x.title}<br><small>${x.file}</small></div>
+   <div>
+    <a class="btn primary" target="_blank" href="${PDF_BASE+x.file}">Aç</a>
+    <a class="btn" download href="${PDF_BASE+x.file}">Yüklə</a>
+   </div>`;
+  list.appendChild(d);
+ });
 }
-renderTabs(); renderList();
+
+renderTabs();
+render();
 </script>
 </body>
 </html>
