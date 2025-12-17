@@ -36,49 +36,50 @@
       border:1px solid var(--line);
       box-shadow: var(--shadow);
       border-radius: var(--radius);
-      padding:16px;
+      padding:16px 16px 14px;
       position:sticky; top:10px; z-index:50;
+      backdrop-filter: blur(10px);
     }
+    .toprow{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .brand{display:flex;gap:10px;align-items:center;min-width:260px;}
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(74,222,128,.9), rgba(34,197,94,.25) 55%, rgba(0,0,0,.2));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: 0 8px 18px rgba(0,0,0,.25);
+    }
+    .brand h1{font-size:16px;margin:0}
+    .brand .sub{font-size:12px;color:var(--muted)}
     nav{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
-    .tab{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:999px;
-      cursor:pointer;
-      font-size:13px;
-    }
+    .tab{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--text);padding:10px 12px;border-radius:999px;cursor:pointer}
     .tab.active{background:rgba(74,222,128,.18);border-color:rgba(74,222,128,.55)}
-    main{
-      margin-top:16px;
-      background: rgba(20,33,24,.75);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-    }
-    .list{padding:16px}
-    .item{
-      display:flex;justify-content:space-between;align-items:center;
-      padding:12px;border:1px solid rgba(255,255,255,.1);
-      border-radius:12px;margin-bottom:10px;
-    }
-    .btn{
-      padding:8px 12px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.05);
-      color:var(--text);text-decoration:none;
-    }
+    main{margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .sectionHead{padding:16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+    .list{padding:10px}
+    .item{display:flex;justify-content:space-between;padding:12px;margin:6px;border:1px solid rgba(255,255,255,.10);border-radius:12px}
+    .btn{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.12);color:var(--text);text-decoration:none}
+    .btn.primary{border-color:rgba(74,222,128,.55)}
   </style>
 </head>
 
 <body>
 <div class="wrap">
 <header>
-  <h1>HBN - LDU Aqrar və Mühəndislik PDF Arxivi</h1>
+  <div class="brand">
+    <div class="logo"></div>
+    <div>
+      <h1>HBN - LDU Aqrar və Mühəndislik PDF Arxivi</h1>
+      <div class="sub">Bölmə seç → PDF-ləri aç və yüklə</div>
+    </div>
+  </div>
   <nav id="tabs"></nav>
 </header>
 
 <main>
+  <div class="sectionHead">
+    <h2 id="sectionTitle"></h2>
+    <div id="countBadge"></div>
+  </div>
   <div class="list" id="list"></div>
 </main>
 </div>
@@ -101,25 +102,25 @@ const SECTIONS = [
 
 const FILES = {
   "Torpaqşünaslıq və Aqrokimya": [
-    {title:"İngilis dili", file:"ingilis_dili.pdf"},
-    {title:"Rus dili", file:"rus_dili.pdf"},
-    {title:"Azərbaycan dili", file:"azerbaycan_dili.pdf"}
+    { title:"Azərbaycan dili — sillabus", file:"azdili_syllabus.pdf" },
+    { title:"İngilis dili — sillabus", file:"ingilis_dili_syllabus.pdf" },
+    { title:"Rus dili — sillabus", file:"rusdili_syllabus.pdf" }
   ],
 
   "İnformasiya texnologiyaları": [
-    {title:"İngilis dili", file:"ingilis_dili.pdf"},
-    {title:"Rus dili", file:"rus_dili.pdf"},
-    {title:"Azərbaycan dili", file:"azerbaycan_dili.pdf"}
+    { title:"Azərbaycan dili — sillabus", file:"azdili_syllabus.pdf" },
+    { title:"İngilis dili — sillabus", file:"ingilis_dili_syllabus.pdf" },
+    { title:"Rus dili — sillabus", file:"rusdili_syllabus.pdf" }
   ]
 };
 
-// boş bölmələr toxunulmur
-SECTIONS.forEach(s => { if(!FILES[s]) FILES[s]=[] });
+for (const s of SECTIONS) if (!FILES[s]) FILES[s] = [];
 
 let active = "Torpaqşünaslıq və Aqrokimya";
-
 const tabs = document.getElementById("tabs");
 const list = document.getElementById("list");
+const title = document.getElementById("sectionTitle");
+const count = document.getElementById("countBadge");
 
 function renderTabs(){
   tabs.innerHTML="";
@@ -133,12 +134,18 @@ function renderTabs(){
 }
 
 function renderList(){
+  title.textContent=active;
   list.innerHTML="";
-  FILES[active].forEach(p=>{
+  const arr=FILES[active];
+  count.textContent=arr.length+" PDF";
+  arr.forEach(p=>{
     list.innerHTML+=`
       <div class="item">
         <div>${p.title}</div>
-        <a class="btn" href="${PDF_BASE+p.file}" target="_blank">Aç</a>
+        <div>
+          <a class="btn primary" href="${PDF_BASE+p.file}" target="_blank">Aç</a>
+          <a class="btn" href="${PDF_BASE+p.file}" download>Yüklə</a>
+        </div>
       </div>`;
   })
 }
