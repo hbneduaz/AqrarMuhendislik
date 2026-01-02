@@ -3,387 +3,196 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>HBN - LDU Aqrar və Mühəndislik PDF Arxivi</title>
+  <title>LDU - Aqrar və Mühəndislik Fakültəsi PDF Arxivi</title>
 
   <style>
     :root{
       --bg:#0f1712;
       --panel:#142118;
-      --panel2:#0f1a13;
       --text:#e8f3ea;
       --muted:#b6c7ba;
       --brand:#4ade80;
-      --brand2:#22c55e;
       --line:rgba(255,255,255,.08);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --shadow:0 10px 30px rgba(0,0,0,.35);
       --radius:16px;
-      --radius2:12px;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:
-        radial-gradient(900px 600px at 15% 10%, rgba(34,197,94,.18), transparent 60%),
-        radial-gradient(700px 500px at 80% 20%, rgba(74,222,128,.12), transparent 55%),
-        linear-gradient(180deg, #0b120e, var(--bg));
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:linear-gradient(180deg,#0b120e,var(--bg));
       color:var(--text);
       min-height:100vh;
     }
     .wrap{max-width:1100px;margin:0 auto;padding:18px 14px 40px}
     header{
-      background: linear-gradient(180deg, rgba(20,33,24,.92), rgba(15,26,19,.92));
+      background:linear-gradient(180deg,rgba(20,33,24,.95),rgba(15,26,19,.95));
       border:1px solid var(--line);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-      padding:16px 16px 14px;
-      position:sticky; top:10px; z-index:50;
-      backdrop-filter: blur(10px);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+      padding:16px;
+      text-align:center;
     }
-    .toprow{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .brand{
-      display:flex;gap:10px;align-items:center;
-      min-width:260px;
-    }
-    .logo{
-      width:38px;height:38px;border-radius:12px;
-      background: radial-gradient(circle at 30% 30%, rgba(74,222,128,.9), rgba(34,197,94,.25) 55%, rgba(0,0,0,.2));
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: 0 8px 18px rgba(0,0,0,.25);
-    }
-    .brand h1{
-      font-size:16px; margin:0; line-height:1.25;
-      letter-spacing:.2px;
-    }
-    .brand .sub{
-      font-size:12px; color:var(--muted); margin-top:2px;
-    }
-
-    .search{
-      flex:1;
-      min-width:240px;
-      display:flex; gap:10px; align-items:center; justify-content:flex-end;
-    }
-    .search input{
-      width:min(520px,100%);
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius: 999px;
-      outline:none;
-    }
-    .search input:focus{border-color: rgba(74,222,128,.55); box-shadow: 0 0 0 4px rgba(74,222,128,.14)}
-    .hint{font-size:12px;color:var(--muted); white-space:nowrap}
-
-    nav{
-      margin-top:12px;
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
-    .tab{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius: 999px;
-      cursor:pointer;
-      font-size:13px;
-      transition:.15s ease;
-      user-select:none;
-    }
-    .tab:hover{transform: translateY(-1px); border-color: rgba(74,222,128,.35)}
-    .tab.active{
-      background: linear-gradient(180deg, rgba(74,222,128,.18), rgba(34,197,94,.08));
-      border-color: rgba(74,222,128,.55);
-      box-shadow: 0 8px 18px rgba(0,0,0,.18);
+    header h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing:.3px;
     }
 
     main{
-      margin-top:16px;
-      background: linear-gradient(180deg, rgba(20,33,24,.75), rgba(15,26,19,.75));
+      margin-top:18px;
+      background:linear-gradient(180deg,rgba(20,33,24,.8),rgba(15,26,19,.8));
       border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .sectionHead{
-      padding:16px;
-      border-bottom:1px solid var(--line);
-      display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap;
-    }
-    .sectionTitle{
-      margin:0;
-      font-size:18px;
-      letter-spacing:.2px;
-    }
-    .count{
-      font-size:12px;color:var(--muted);
-      padding:6px 10px;border:1px solid rgba(255,255,255,.10);
-      border-radius:999px;background:rgba(255,255,255,.04);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:20px;
     }
 
-    .list{padding:10px}
-    .item{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:12px 12px;
-      margin:8px 6px;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,.03);
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:16px;
     }
-    .item:hover{border-color: rgba(74,222,128,.35)}
-    .left{display:flex;align-items:center;gap:12px;min-width:0}
-    .badge{
-      width:36px;height:36px;border-radius:12px;
-      background: rgba(74,222,128,.12);
-      border:1px solid rgba(74,222,128,.25);
-      display:grid;place-items:center;
-      flex:0 0 auto;
+    .card{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:20px;
+      background:rgba(255,255,255,.04);
+      cursor:pointer;
+      transition:.15s;
     }
-    .badge svg{opacity:.95}
-    .meta{min-width:0}
-    .name{
-      font-size:14px;margin:0;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    .card:hover{
+      border-color:rgba(74,222,128,.5);
+      transform:translateY(-2px);
     }
-    .file{
-      font-size:12px;color:var(--muted);
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-      margin-top:3px;
+    .card h3{
+      margin:0;
+      font-size:16px;
+      color:var(--brand);
     }
-    .actions{display:flex;gap:10px;flex:0 0 auto}
-    .btn{
-      text-decoration:none;
-      font-size:13px;
-      padding:9px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
-      transition:.15s ease;
-      white-space:nowrap;
-    }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(74,222,128,.35)}
-    .btn.primary{
-      border-color: rgba(74,222,128,.55);
-      background: rgba(74,222,128,.10);
-    }
-    .empty{
-      padding:22px 16px;
-      color:var(--muted);
+
+    .back{
+      margin-bottom:14px;
+      cursor:pointer;
+      color:var(--brand);
       font-size:14px;
     }
+
+    .list .item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:12px;
+      margin:8px 0;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:rgba(255,255,255,.03);
+    }
+    .item a{
+      color:var(--text);
+      text-decoration:none;
+    }
+
     footer{
-      margin-top:14px;
-      color:rgba(255,255,255,.55);
-      font-size:12px;
+      margin-top:16px;
       text-align:center;
+      font-size:12px;
+      color:var(--muted);
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header>
-      <div class="toprow">
-        <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
-          <div>
-            <h1>HBN - LDU Aqrar və Mühəndislik PDF Arxivi</h1>
-            <div class="sub">Bölmə seç → PDF-ləri aç və yüklə</div>
-          </div>
-        </div>
+<div class="wrap">
+  <header>
+    <h1>LDU - Aqrar və Mühəndislik Fakültəsi PDF Arxivi</h1>
+  </header>
 
-        <div class="search">
-          <input id="searchInput" type="search" placeholder="PDF axtar... (məs: torpaq, syllabus, mikrobiologiya)" />
-          <div class="hint" id="hintText">Aktiv bölmədə axtarır</div>
-        </div>
-      </div>
+  <main>
+    <div id="home" class="grid"></div>
 
-      <nav id="tabs"></nav>
-    </header>
+    <div id="section" style="display:none;">
+      <div class="back" onclick="goHome()">← Bölmələrə qayıt</div>
+      <h2 id="sectionTitle"></h2>
+      <div class="list" id="pdfList"></div>
+    </div>
+  </main>
 
-    <main>
-      <div class="sectionHead">
-        <h2 class="sectionTitle" id="sectionTitle">—</h2>
-        <div class="count" id="countBadge">0 PDF</div>
-      </div>
+  <footer>
+    © By hbnedu.az
+  </footer>
+</div>
 
-      <div class="list" id="list"></div>
-      <div class="empty" id="empty" style="display:none;">
-        Bu bölmədə hələ PDF yoxdur.
-      </div>
-    </main>
+<script>
+const PDF_BASE="pdf/";
 
-    <footer>
-      © HBN • LDU Aqrar və Mühəndislik Fakültəsi PDF arxivi
-    </footer>
-  </div>
+const DATA={
+  "Torpaqşünaslıq və Aqrokimya":[
+    {title:"Aqrokimya",file:"aqrokimya.pdf"},
+    {title:"Torpaqşünaslıq 1",file:"torpaqshunas_one.pdf"},
+    {title:"Torpaqşünaslıq 2",file:"torpaqshunastwo.pdf"},
+    {title:"Mikrobiologiya",file:"mikrobiologiya.pdf"},
+    {title:"Torpaq mikrobiologiyası və biotexnikası",file:"torpaq_mikrobiologiyasi_ve_biotexnikasi.pdf"},
+    {title:"Torpaq münbitliyi və bitkilərin qidalanması",file:"torpaq_munbitliyi_ve_bitkilerin_qidalanmasi.pdf"},
+    {title:"Torpaq fizikası",file:"torpaqfizikasi.pdf"},
+    {title:"Torpaqların rekultivasiyası",file:"torpaqlarin_rekultivasiya.pdf"},
+    {title:"Aqrar məsləhət xidməti",file:"agrar_meslehet_xidmeti.pdf"},
+    {title:"Mülki müdafiə",file:"mulki_mudafie_movzu.pdf"},
+    {title:"Politologiya",file:"politologiya_muhazireler.pdf"}
+  ],
 
-  <script>
-    const PDF_BASE = "pdf/";
+  "İnformasiya texnologiyaları":[
+    {title:"Mülki müdafiə",file:"mulki_mudafie_movzu.pdf"},
+    {title:"Politologiya",file:"politologiya_muhazireler.pdf"},
+    {title:"Azərbaycan dili",file:"azdili.pdf"},
+    {title:"İngilis dili",file:"ingilis_dili.pdf"},
+    {title:"Rus dili",file:"rusdili.pdf"},
+    {title:"Xətti cəbr və analitik həndəsə",file:"xetti_cebr_ve_analitik_hendese.pdf"}
+  ],
 
-    const SECTIONS = [
-      "Kompüter mühəndisliyi",
-      "İnformasiya texnologiyaları",
-      "İnformasiya təhlükəsizliyi",
-      "Qida mühəndisliyi",
-      "Şərabçılıq",
-      "Aqromühəndislik",
-      "Aqronomluq",
-      "Bağçılıq və tərəvəzçilik",
-      "Torpaqşünaslıq və Aqrokimya",
-      "Meşəçilik"
-    ];
+  "Kompüter mühəndisliyi":[],
+  "İnformasiya təhlükəsizliyi":[],
+  "Qida mühəndisliyi":[],
+  "Şərabçılıq":[],
+  "Aqromühəndislik":[],
+  "Aqronomluq":[],
+  "Bağçılıq və tərəvəzçilik":[],
+  "Meşəçilik":[]
+};
 
-    // DİQQƏT: fayl adları sənin “pdf” qovluğundakı adlarla 100% eynidir.
-    const FILES = {
-      "Torpaqşünaslıq və Aqrokimya": [
-        { title: "Aqrar məsləhət xidməti — sillabus", file: "agrar_meslehet_xidmeti_syllabus.pdf" },
+const home=document.getElementById("home");
+const section=document.getElementById("section");
+const sectionTitle=document.getElementById("sectionTitle");
+const pdfList=document.getElementById("pdfList");
 
-        { title: "Aqrokimya", file: "aqrokimya.pdf" },
-        { title: "Aqrokimya — sillabus", file: "aqrokimya_syllabus.pdf" },
+function goHome(){
+  section.style.display="none";
+  home.style.display="grid";
+}
 
-        { title: "Azərbaycan dili — sillabus", file: "azdili_syllabus.pdf" },
-        { title: "Botanika — sillabus", file: "botanika_syllabus.pdf" },
+function openSection(name){
+  home.style.display="none";
+  section.style.display="block";
+  sectionTitle.textContent=name;
+  pdfList.innerHTML="";
+  (DATA[name]||[]).forEach(p=>{
+    const div=document.createElement("div");
+    div.className="item";
+    div.innerHTML=`
+      <span>${p.title}</span>
+      <a href="${PDF_BASE+p.file}" target="_blank">Aç</a>
+    `;
+    pdfList.appendChild(div);
+  });
+}
 
-        { title: "Bitki mühafizəsi — sillabus", file: "bitki_muhafizesi_syllabus.pdf" },
-        { title: "Coğrafi informasiya sistemləri — sillabus", file: "cografi_informasiya_sistemleri_syllabus.pdf" },
-        { title: "Geodeziya — sillabus", file: "geodeziya_syllabus.pdf" },
-        { title: "İngilis dili — sillabus", file: "ingilis_dili_syllabus.pdf" },
-        { title: "Riyaziyyat — sillabus", file: "riyaziyyat_syllabus.pdf" },
-        { title: "Rus dili — sillabus", file: "rusdili_syllabus.pdf" },
-
-        { title: "Mikrobiologiya", file: "mikrobiologiya.pdf" },
-        { title: "Mikrobiologiya — sillabus", file: "mikrobiologiya_syllabus.pdf" },
-
-        { title: "Torpaq mikrobiologiyası və biotexnikası — sillabus", file: "torpaq_mikrobiologiyasi_ve_biotexnikasi_syllabus.pdf" },
-        { title: "Torpaq münbitliyi: qida maddələri və gübrələrdən istifadə — sillabus", file: "torpaq_munbitliyi_qida_maddeleri_ve_gubrelerden_istifade_syllabus.pdf" },
-        { title: "Torpaq münbitliyi və bitkilərin qidalanması — sillabus", file: "torpaq_munbitliyi_ve_bitkilerin_qidalanmasi_syllabus.pdf" },
-
-        { title: "Torpaq fizikası — sillabus", file: "torpaqfizikasi_syllabus.pdf" },
-
-        { title: "Torpaqların aqroekoloji qiymətləndirilməsi — sillabus", file: "torpaqlarin_agroekoloji_qiymetlendirilmesi_syllabus.pdf" },
-        { title: "Torpaqların kartoqarfiyası — sillabus", file: "torpaqlarin_kartoqrafiyasi_syllabus.pdf" },
-        { title: "Torpaqların radiobiologiyası — sillabus", file: "torpaqlarin_radiobiologiyasi_syllabus.pdf" },
-        { title: "Torpaqların rekultivasiyası — sillabus", file: "torpaqlarin_rekultivasiya_syllabus.pdf" },
-
-        { title: "Torpaqşünaslıq 1", file: "torpaqshunas_one.pdf" },
-        { title: "Torpaqşünaslıq — sillabus", file: "torpaqshunas_syllabus.pdf" },
-        { title: "Torpaqşünaslıq 2", file: "torpaqshunastwo.pdf" },
-
-        { title: "Ümumi kimya — sillabus", file: "umumkimya_syllabus.pdf" },
-
-        // Bu 4-ü həm burda, həm də “İnformasiya texnologiyaları” bölməsində görünsün:
-        { title: "Mülki müdafiə — mövzu", file: "mulki_mudafie_movzu.pdf" },
-        { title: "Mülki müdafiə — sillabus", file: "mulki_mudafie_syllabus.pdf" },
-        { title: "Politologiya — mühazirələr", file: "politologiya_muhazireler.pdf" },
-        { title: "Politologiya — sillabus", file: "politologiya_syllabus.pdf" }
-      ],
-
-      "İnformasiya texnologiyaları": [
-        { title: "Mülki müdafiə — mövzu", file: "mulki_mudafie_movzu.pdf" },
-        { title: "Mülki müdafiə — sillabus", file: "mulki_mudafie_syllabus.pdf" },
-        { title: "Politologiya — mühazirələr", file: "politologiya_muhazireler.pdf" },
-        { title: "Politologiya — sillabus", file: "politologiya_syllabus.pdf" },
-
-        // ✅ SƏN DEDİYİN 3 DİL SİLLABUSU BURADA DA GÖRÜNSÜN:
-        { title: "Azərbaycan dili — sillabus", file: "azdili_syllabus.pdf" },
-        { title: "İngilis dili — sillabus", file: "ingilis_dili_syllabus.pdf" },
-        { title: "Rus dili — sillabus", file: "rusdili_syllabus.pdf" },
-
-        // ✅ ƏLAVƏ: Xətti cəbr və analitik həndəsə (qovluqdakı adla eyni)
-        { title: "Xətti cəbr və analitik həndəsə — sillabus", file: "xetti_cebr_ve_analatik_hendese_syllabus.pdf" }
-      ]
-    };
-
-    // Qalan bölmələr boş qalır
-    for (const s of SECTIONS) if (!FILES[s]) FILES[s] = [];
-
-    const tabsEl = document.getElementById("tabs");
-    const titleEl = document.getElementById("sectionTitle");
-    const listEl = document.getElementById("list");
-    const emptyEl = document.getElementById("empty");
-    const countEl = document.getElementById("countBadge");
-    const searchInput = document.getElementById("searchInput");
-
-    let activeSection = "Torpaqşünaslıq və Aqrokimya";
-
-    function safeUrl(fileName){
-      return PDF_BASE + encodeURIComponent(fileName).replace(/%2F/g, "/");
-    }
-
-    function renderTabs(){
-      tabsEl.innerHTML = "";
-      SECTIONS.forEach((name) => {
-        const btn = document.createElement("button");
-        btn.className = "tab" + (name === activeSection ? " active" : "");
-        btn.type = "button";
-        btn.textContent = name;
-        btn.onclick = () => {
-          activeSection = name;
-          searchInput.value = "";
-          renderTabs();
-          renderList();
-        };
-        tabsEl.appendChild(btn);
-      });
-    }
-
-    function pdfIcon(){
-      return `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-5Z" stroke="rgba(232,243,234,.9)" stroke-width="1.5"/>
-          <path d="M14 2v5h5" stroke="rgba(232,243,234,.9)" stroke-width="1.5"/>
-          <path d="M8 14h8M8 17h6" stroke="rgba(74,222,128,.9)" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      `;
-    }
-
-    function renderList(){
-      const q = (searchInput.value || "").trim().toLowerCase();
-      titleEl.textContent = activeSection;
-
-      const all = FILES[activeSection] || [];
-      const filtered = all.filter(x => {
-        if (!q) return true;
-        return (x.title + " " + x.file).toLowerCase().includes(q);
-      });
-
-      countEl.textContent = `${filtered.length} PDF`;
-
-      listEl.innerHTML = "";
-      if (filtered.length === 0){
-        emptyEl.style.display = "block";
-        return;
-      }
-      emptyEl.style.display = "none";
-
-      filtered.forEach((x) => {
-        const url = safeUrl(x.file);
-        const row = document.createElement("div");
-        row.className = "item";
-        row.innerHTML = `
-          <div class="left">
-            <div class="badge">${pdfIcon()}</div>
-            <div class="meta">
-              <p class="name">${x.title}</p>
-              <div class="file">${x.file}</div>
-            </div>
-          </div>
-          <div class="actions">
-            <a class="btn primary" href="${url}" target="_blank" rel="noopener">Aç</a>
-            <a class="btn" href="${url}" download>Yüklə</a>
-          </div>
-        `;
-        listEl.appendChild(row);
-      });
-    }
-
-    searchInput.addEventListener("input", renderList);
-
-    renderTabs();
-    renderList();
-  </script>
+Object.keys(DATA).forEach(sec=>{
+  const c=document.createElement("div");
+  c.className="card";
+  c.innerHTML=`<h3>${sec}</h3>`;
+  c.onclick=()=>openSection(sec);
+  home.appendChild(c);
+});
+</script>
 </body>
 </html>
