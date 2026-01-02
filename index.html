@@ -8,20 +8,20 @@
 
 <style>
 :root{
-  --bg:#f4f9fc;
-  --panel:#ffffff;
-  --card:#f8fbff;
-  --text:#0f172a;
-  --muted:#64748b;
+  --bg:#0f172a;
+  --panel:#111827;
+  --card:#1f2937;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
   --accent:#38bdf8;
-  --border:rgba(15,23,42,.12);
+  --border:rgba(255,255,255,.08);
   --radius:14px;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  background:linear-gradient(180deg,#eef6fb,#f9fcff);
+  background:linear-gradient(180deg,#0b1220,#0f172a);
   color:var(--text);
 }
 .wrap{max-width:1200px;margin:auto;padding:20px}
@@ -53,7 +53,7 @@ header{
   padding:10px 14px;
   border-radius:999px;
   border:1px solid var(--border);
-  background:#ffffff;
+  background:#020617;
   color:var(--text);
 }
 nav{
@@ -66,15 +66,15 @@ nav{
   padding:8px 14px;
   border-radius:999px;
   border:1px solid var(--border);
-  background:#ffffff;
+  background:#020617;
   color:var(--text);
   cursor:pointer;
   font-size:13px;
 }
 .tab.active{
-  background:rgba(56,189,248,.15);
+  background:rgba(56,189,248,.2);
   border-color:rgba(56,189,248,.6);
-  color:#0369a1;
+  color:#bae6fd;
 }
 main{
   margin-top:20px;
@@ -109,8 +109,8 @@ main{
   transition:.15s ease;
 }
 .card:hover{
-  border-color:rgba(56,189,248,.45);
-  box-shadow:0 6px 18px rgba(56,189,248,.12);
+  border-color:rgba(56,189,248,.5);
+  box-shadow:0 8px 24px rgba(56,189,248,.18);
 }
 .card h3{
   margin:0;
@@ -135,12 +135,12 @@ main{
   font-size:13px;
   border:1px solid var(--border);
   color:var(--text);
-  background:#ffffff;
+  background:#020617;
 }
 .actions a.primary{
-  background:rgba(56,189,248,.18);
-  border-color:rgba(56,189,248,.6);
-  color:#075985;
+  background:rgba(56,189,248,.25);
+  border-color:rgba(56,189,248,.7);
+  color:#e0f2fe;
 }
 .empty{
   padding:30px;
@@ -151,7 +151,7 @@ footer{
   margin-top:30px;
   text-align:center;
   font-size:12px;
-  color:#64748b;
+  color:#9ca3af;
 }
 </style>
 </head>
